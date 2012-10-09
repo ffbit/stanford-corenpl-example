@@ -9,7 +9,6 @@ import org.junit.Test;
 import edu.stanford.nlp.dcoref.CorefChain;
 import edu.stanford.nlp.dcoref.CorefCoreAnnotations.CorefChainAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
@@ -30,8 +29,7 @@ public class StanfordCoreNLPTest {
         // creates a StanfordCoreNLP object, with POS tagging, lemmatization,
         // NER, parsing, and coreference resolution
         Properties props = new Properties();
-        props.put("annotators",
-                "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+        props.put("annotators", "tokenize, ssplit, pos, lemma");
 
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
@@ -59,11 +57,10 @@ public class StanfordCoreNLPTest {
                 String lemma = token.get(LemmaAnnotation.class);
                 // this is the POS tag of the token
                 String pos = token.get(PartOfSpeechAnnotation.class);
-                // this is the NER label of the token
-                String ne = token.get(NamedEntityTagAnnotation.class);
 
-                System.out.printf("|%-10s|%-10s|%-10s|%-10s|%n", word, lemma,
-                        pos, ne);
+                System.out.printf("|%-10s|%-10s|%-10s|%n", word, lemma, pos);
+
+                System.out.println(token);
             }
 
             // this is the parse tree of the current sentence
